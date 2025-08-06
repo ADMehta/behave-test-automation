@@ -1,0 +1,63 @@
+[
+    {
+        "keyword": "Feature",
+        "name": "Member Signup Page",
+        "tags": [],
+        "location": "features/signup.feature:1",
+        "status": "passed",
+        "elements": [
+            {
+                "type": "scenario",
+                "keyword": "Scenario",
+                "name": "Navigate to Function Health and open signup page",
+                "tags": [],
+                "location": "features/signup.feature:3",
+                "steps": [
+                    {
+                        "keyword": "Given",
+                        "step_type": "given",
+                        "name": "I open the Function Health homepage",
+                        "location": "features/signup.feature:4",
+                        "match": {
+                            "location": "features/steps/signup_steps.py:5",
+                            "arguments": []
+                        },
+                        "result": {
+                            "status": "passed",
+                            "duration": 2.604010820388794
+                        }
+                    },
+                    {
+                        "keyword": "When",
+                        "step_type": "when",
+                        "name": "I click on the Member Sign Up button",
+                        "location": "features/signup.feature:5",
+                        "match": {
+                            "location": "features/steps/signup_steps.py:11",
+                            "arguments": []
+                        },
+                        "result": {
+                            "status": "passed",
+                            "duration": 3.592007875442505
+                        }
+                    },
+                    {
+                        "keyword": "Then",
+                        "step_type": "then",
+                        "name": "I should be redirected to the signup page",
+                        "location": "features/signup.feature:6",
+                        "match": {
+                            "location": "features/steps/signup_steps.py:15",
+                            "arguments": []
+                        },
+                        "result": {
+                            "status": "passed",
+                            "duration": 0.09507322311401367
+                        }
+                    }
+                ],
+                "status": "passed"
+            }
+        ]
+    }
+]

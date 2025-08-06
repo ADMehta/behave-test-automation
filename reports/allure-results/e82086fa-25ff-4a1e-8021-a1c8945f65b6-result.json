@@ -1,0 +1,51 @@
+{
+    "name": "Navigate to Function Health and open signup page",
+    "status": "passed",
+    "steps": [
+        {
+            "name": "Given I open the Function Health homepage",
+            "status": "passed",
+            "start": 1754516619052,
+            "stop": 1754516621681
+        },
+        {
+            "name": "When I click on the Member Sign Up button",
+            "status": "passed",
+            "start": 1754516621682,
+            "stop": 1754516624747
+        },
+        {
+            "name": "Then I should be redirected to the signup page",
+            "status": "passed",
+            "start": 1754516624747,
+            "stop": 1754516624838
+        }
+    ],
+    "start": 1754516619052,
+    "stop": 1754516624838,
+    "uuid": "62f3aea4-42e8-4299-b327-30113c122944",
+    "historyId": "4f5fd4a03a7c8100e6bec508eab999b2",
+    "fullName": "Member Signup Page: Navigate to Function Health and open signup page",
+    "labels": [
+        {
+            "name": "severity",
+            "value": "normal"
+        },
+        {
+            "name": "feature",
+            "value": "Member Signup Page"
+        },
+        {
+            "name": "framework",
+            "value": "behave"
+        },
+        {
+            "name": "language",
+            "value": "cpython3"
+        }
+    ],
+    "titlePath": [
+        "features",
+        "Member Signup Page"
+    ]
+}
