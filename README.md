@@ -3,7 +3,7 @@
 This project is a BDD-style test automation framework using Behave and Selenium. It supports Allure reporting and is designed for scalable, maintainable UI testing.
 
 
-# 🧪 Behave Test Automation
+## 🧪 Behave Test Automation
 
 Automated end-to-end testing framework using [Behave](https://behave.readthedocs.io/en/stable/) (BDD for Python), [Selenium](https://www.selenium.dev/), and [Allure](https://docs.qameta.io/allure/) for rich test reporting. Integrated with Jenkins for CI/CD workflows.
 
@@ -26,7 +26,7 @@ Automated end-to-end testing framework using [Behave](https://behave.readthedocs
 
 ## 🛠️ Setup Instructions
 
-### 1. Clone the Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ADMehta/behave-test-automation.git
