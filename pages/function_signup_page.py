@@ -27,6 +27,8 @@ class FunctionSignupPage:
 
     def enter_name(self, first, last):
         try:
+            element_to_scroll = self.driver.find_element(By.ID, "firstName")
+            self.driver.execute_script("arguments[0].scrollIntoView();", element_to_scroll)
             self.wait.until(EC.visibility_of_element_located((By.ID, "firstName"))).send_keys(first)
             self.wait.until(EC.visibility_of_element_located((By.ID, "lastName"))).send_keys(last)
         except Exception as e:
@@ -46,18 +48,6 @@ class FunctionSignupPage:
         except Exception as e:
             print(f"❌ Error entering date of birth: {e}")
             raise
-
-    # def select_sex(self, sex): 
-    #     try:
-    #         if sex.lower() == "female":
-                
-    #             #self.wait.until(EC.element_to_be_clickable((By.ID, "sex"))).click()
-    #             (By.XPATH, "//div[@data-value='female']")
-    #         else:
-    #             self.wait.until(EC.element_to_be_clickable((By.ID, "male"))).click()
-    #     except Exception as e:
-    #         print(f"❌ Error selecting biological sex: {e}")
-    #         raise
 
     def select_sex(self, sex):
         try:
@@ -94,12 +84,17 @@ class FunctionSignupPage:
 
     def agree_to_terms(self):
         try:
-            self.wait.until(EC.element_to_be_clickable((By.ID, "agreeTermsAndPrivacy"))).click()
-            self.wait.until(EC.element_to_be_clickable((By.ID, "agreeUseMedicalInformation"))).click()
-            self.wait.until(EC.element_to_be_clickable((By.ID, "agreeLabResults"))).click()
+            print("in TRY Block...")
+            checkbox1 = self.driver.find_element(By.ID, "agreeTermsAndPrivacy")
+            self.driver.execute_script("arguments[0].click();", checkbox1)
+            checkbox2 = self.driver.find_element(By.ID, "agreeUseMedicalInformation")
+            self.driver.execute_script("arguments[0].click();", checkbox2)           
+            checkbox3 = self.driver.find_element(By.ID, "agreeLabResults")
+            self.driver.execute_script("arguments[0].click();", checkbox3)
         except Exception as e:
             print(f"❌ Error agreeing to terms: {e}")
-            raise
+            raise  # ✅ Correct
+
 
     def click_continue(self):
         try:
