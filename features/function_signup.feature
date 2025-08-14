@@ -1,6 +1,6 @@
 Feature: Function Health Member Signup
 
-  Scenario Outline: User completes the member signup form successfully by clicking join button.
+  Scenario: User completes the member signup form successfully by clicking join button.
     Given I navigate to "<url>"
     And I click on the "<join_button>" button
     When I enter email "<email>" and access code "<access_code>"
