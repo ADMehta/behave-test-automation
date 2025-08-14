@@ -1,56 +1,55 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    PYTHONPATH = "${WORKSPACE}"
-  }
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                // Clean everything including hidden files
+                cleanWs() // Requires Workspace Cleanup Plugin
+                deleteDir()
+            }
+        }
 
-  stages {
-    stage('Clean Workspace') {
-      steps {
-        echo 'Cleaning workspace...'
-        deleteDir() // Wipes Jenkins workspace
-      }
+        stage('Checkout') {
+            steps {
+                // Ensure latest code is pulled
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                    source venv/bin/activate
+                    rm -rf reports/allure-results
+                    behave -f allure_behave.formatter:AllureFormatter -o reports/allure-results -f pretty
+                '''
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
+            }
+        }
     }
 
-    stage('Setup') {
-      steps {
-        echo 'Installing dependencies...'
-        sh 'python3 -m venv venv'
-        sh '. venv/bin/activate && pip install --upgrade pip'
-        sh '. venv/bin/activate && pip install -r requirements.txt'
-      }
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        failure {
+            echo 'Build failed. Check logs and Allure report for details.'
+        }
     }
-
-    stage('Run Sanity Tests') {
-      steps {
-        echo 'Cleaning previous Allure results...'
-        sh 'rm -rf reports/allure-results'
-
-        echo 'Running Behave tests with Allure formatter...'
-        sh '. venv/bin/activate && behave -f allure_behave.formatter:AllureFormatter -o reports/allure-results'
-      }
-    }
-
-    stage('Generate Allure Report') {
-      steps {
-        echo 'Cleaning previous Allure HTML report...'
-        sh 'rm -rf reports/allure-report'
-
-        echo 'Generating Allure HTML report...'
-        sh 'allure generate reports/allure-results -o reports/allure-report --clean'
-      }
-    }
-  }
-
-  post {
-    always {
-      echo 'Publishing Allure report...'
-      allure([
-        includeProperties: false,
-        jdk: '',
-        results: [[path: 'reports/allure-results']]
-      ])
-    }
-  }
 }
