@@ -9,28 +9,34 @@ pipeline {
     stage('Clean Workspace') {
       steps {
         echo 'Cleaning workspace...'
-        deleteDir() // Deletes everything in the current workspace
+        deleteDir() // Wipes Jenkins workspace
       }
     }
 
     stage('Setup') {
       steps {
         echo 'Installing dependencies...'
-        sh 'pip install -r requirements.txt'
+        sh 'python3 -m venv venv'
+        sh '. venv/bin/activate && pip install --upgrade pip'
+        sh '. venv/bin/activate && pip install -r requirements.txt'
       }
     }
 
     stage('Run Sanity Tests') {
       steps {
-        echo 'Running Behave tests with Allure formatter...'
-        // Ensure allure-results folder is clean before test run
+        echo 'Cleaning previous Allure results...'
         sh 'rm -rf reports/allure-results'
-        sh 'behave -f allure_behave.formatter:AllureFormatter -o reports/allure-results'
+
+        echo 'Running Behave tests with Allure formatter...'
+        sh '. venv/bin/activate && behave -f allure_behave.formatter:AllureFormatter -o reports/allure-results'
       }
     }
 
     stage('Generate Allure Report') {
       steps {
+        echo 'Cleaning previous Allure HTML report...'
+        sh 'rm -rf reports/allure-report'
+
         echo 'Generating Allure HTML report...'
         sh 'allure generate reports/allure-results -o reports/allure-report --clean'
       }
